@@ -1,0 +1,20 @@
+{
+	"name": "types",
+	"version": "0.0.0",
+	"license": "UNLICENSED",
+	"scripts": {},
+  "main": "src/index.ts",
+	"dependencies": {
+    "utils": "*"
+  },
+	"targets": {
+		"node": "11"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "../jest-babel-transform.js"
+    },
+    "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
+  }
+}
