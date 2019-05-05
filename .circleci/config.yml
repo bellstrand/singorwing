@@ -1,0 +1,131 @@
+version: 2
+
+docker_defaults: &docker_defaults
+  docker:
+    - image: circleci/node:11
+  working_directory: ~/project
+
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: ~/project
+
+lint: &lint
+  steps:
+    - *attach_workspace
+    - run:
+        name: Lint
+        command: cd $PROJECT_PATH && yarn test:lint
+
+test: &test
+  docker:
+    - image: circleci/node:12
+    - image: postgres:11-alpine
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: unit-test
+  steps:
+    - *attach_workspace
+    - run:
+        name: Test (coverage)
+        command: cd $PROJECT_PATH && yarn test --coverage
+    - store_artifacts:
+        path: coverage
+
+build: &build
+  steps:
+    - *attach_workspace
+    - run:
+        name: "Build"
+        command: cd $PROJECT_PATH && yarn build
+    - persist_to_workspace:
+        root: ~/project
+        paths:
+          - singorwing
+
+jobs:
+  install:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - *attach_workspace
+      - restore_cache:
+          name: Restore node_modules cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          name: Save node_modules cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - singorwing
+
+  api-lint:
+    environment:
+      PROJECT_PATH: api
+    <<: *docker_defaults
+    <<: *lint
+
+  api-test:
+    environment:
+      PROJECT_PATH: api
+    <<: *docker_defaults
+    <<: *test
+
+  api-migration:
+    environment:
+      PROJECT_PATH: api
+    <<: *docker_defaults
+    docker:
+      - image: circleci/node:12
+      - image: postgres:11-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: singorwing
+    steps:
+      - *attach_workspace
+      - run:
+          name: Test (migration)
+          command: cd $PROJECT_PATH && yarn check:dbup && yarn test:migration
+
+  api-build:
+    environment:
+      PROJECT_PATH: api
+    <<: *docker_defaults
+    <<: *build
+
+  gui-lint:
+    environment:
+      PROJECT_PATH: api
+    <<: *docker_defaults
+    <<: *lint
+
+workflows:
+  version: 2
+  api:
+    jobs:
+      - install
+      - api-lint:
+          requires:
+            - install
+      - api-test:
+          requires:
+            - install
+      - api-migration:
+          requires:
+            - install
+      - api-build:
+          requires:
+            - install
+  gui:
+    jobs:
+      - install
+      - gui-lint:
+          requires:
+            - install
