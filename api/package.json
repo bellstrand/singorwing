@@ -1,0 +1,68 @@
+{
+	"name": "api",
+	"version": "0.0.0",
+	"license": "UNLICENSED",
+	"scripts": {
+		"babel": "babel-node --root-mode=upward --extensions '.ts'",
+    "dev": "nodemon -w 'src/**/*' --ignore 'src/**/*.spec.ts' -x yarn babel ./src/index.ts | bunyan",
+		"start": "env NODE_PATH=dist node build/index.js",
+		"sync": "yarn typeorm schema:sync",
+		"build": "babel --root-mode=upward --extensions '.ts' src -d build",
+    "test": "./node_modules/.bin/jest --runInBand",
+		"test:check-types": "tsc --noEmit",
+		"test:lint": "eslint 'src/**/*.ts'",
+		"typeorm": "yarn babel ./node_modules/.bin/typeorm",
+		"migrate": "yarn babel ./node_modules/.bin/typeorm migration:run"
+	},
+	"dependencies": {
+    "@hapi/joi": "^15.0.1",
+    "argon2": "^0.22.0",
+    "axios": "^0.18.0",
+    "btoa": "^1.2.1",
+    "bunyan": "^1.8.12",
+    "fs-extra": "^7.0.1",
+		"jsonwebtoken": "^8.5.1",
+		"koa": "^2.7.0",
+		"koa-bodyparser": "^4.2.1",
+		"koa-compress": "^3.0.0",
+		"koa-helmet": "^4.1.0",
+		"koa-router": "^7.4.0",
+    "reflect-metadata": "^0.1.13",
+		"pg": "^7.10.0",
+		"typeorm": "^0.2.16",
+    "utils": "*",
+    "types": "*",
+    "uuid": "^3.3.2",
+    "ws": "^7.0.0"
+	},
+	"devDependencies": {
+    "@types/btoa": "^1.2.3",
+    "@types/bunyan": "^1.8.6",
+    "@types/fs-extra": "^5.0.5",
+		"@types/hapi__joi": "^15.0.1",
+		"@types/jsonwebtoken": "^8.3.2",
+		"@types/koa": "^2.0.48",
+		"@types/koa-bodyparser": "^5.0.1",
+		"@types/koa-compress": "^2.0.9",
+		"@types/koa-helmet": "^3.1.2",
+		"@types/koa-router": "^7.0.40",
+		"@types/sinon": "^7.0.11",
+    "@types/supertest": "^2.0.7",
+    "@types/uuid": "^3.4.4",
+    "@types/ws": "^6.0.1",
+    "jest": "^24.7.1",
+		"nodemon": "^1.19.0",
+		"sinon": "^7.3.2",
+		"supertest": "^4.0.2"
+	},
+	"targets": {
+		"node": "11"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "../jest-babel-transform.js"
+    },
+    "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
+  }
+}
