@@ -3,7 +3,7 @@ import bodyParser from "koa-bodyparser"
 import Request from "supertest"
 import { User } from "types"
 import { v4 } from "uuid"
-import { UserEntity } from "../entities"
+import { UserEntity } from "../../entities"
 import { userRoutes } from "./user"
 
 describe("Routes => User", () => {

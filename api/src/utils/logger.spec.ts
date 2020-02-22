@@ -17,4 +17,5 @@ describe("utils/logger", () => {
 	})
 })
 
+/* eslint-disable-next-line jest/no-export */
 export type FUCKING_THING_I_HAVE_TO_EXPORT_TO_EXCLUDE_SHIT = "asd"

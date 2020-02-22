@@ -1,8 +1,8 @@
 import Router from "koa-router"
 import { Distortion } from "types"
-import { DistortionEntity } from "../../entities"
-import { Joi, validate } from "../../middleware/validate"
-import { KoaAuthContext } from "../../utils/koa"
+import { DistortionEntity } from "../../../entities"
+import { Joi, validate } from "../../../middleware/validate"
+import { KoaAuthContext } from "../../../utils/koa"
 
 export function distortionRoutes() {
 	const router = new Router()

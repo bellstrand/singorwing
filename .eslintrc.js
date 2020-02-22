@@ -36,5 +36,9 @@ module.exports = {
 		"lines-between-class-members": "off",
 		"import/no-cycle": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"unicorn/consistent-function-scoping": "off",
+		"unicorn/regex-shorthand": "off",
+		"jest/expect-expect": "off",
 	},
 }

@@ -1,6 +1,7 @@
 import { Server } from "http"
 import { SocketData, SocketDataType } from "types"
 import ws from "ws"
+import { logger } from "./utils/logger"
 
 let wss: ws.Server
 
@@ -10,22 +11,22 @@ export function createWebsocketServer(server: Server) {
 }
 
 function onConnection(socket: ws) {
-	console.log("socket connection")
+	logger.info("SYSTEM", "socket connection")
 	socket.addEventListener("message", (message) => {
-		console.log("socket message")
-		console.log(message)
+		logger.info("SYSTEM", "socket message")
+		logger.info("SYSTEM", message)
 	})
 	socket.addEventListener("open", (message) => {
-		console.log("socket open")
-		console.log(message)
+		logger.info("SYSTEM", "socket open")
+		logger.info("SYSTEM", message)
 	})
 	socket.addEventListener("close", (message) => {
-		console.log("socket close")
-		console.log(message)
+		logger.info("SYSTEM", "socket close")
+		logger.info("SYSTEM", message)
 	})
 	socket.addEventListener("error", (message) => {
-		console.log("socket error")
-		console.log(message)
+		logger.info("SYSTEM", "socket error")
+		logger.info("SYSTEM", message)
 	})
 }
 

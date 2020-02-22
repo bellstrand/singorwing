@@ -2,8 +2,8 @@ import Koa from "koa"
 import bodyParser from "koa-bodyparser"
 import Request from "supertest"
 import { artistRoutes } from "."
-import { mockState } from "../../../setup-jest"
-import { ArtistEntity, UserEntity } from "../../entities"
+import { mockState } from "../../../../setup-jest"
+import { ArtistEntity, UserEntity } from "../../../entities"
 
 describe("Routes: Artist", () => {
 	let app: Koa

@@ -2,8 +2,12 @@
 	"name": "types",
 	"version": "0.0.0",
 	"license": "UNLICENSED",
-	"scripts": {},
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+	"scripts": {
+    "build": "npm run build:types && npm run build:js",
+		"build:types": "tsc --emitDeclarationOnly --skipLibCheck",
+		"build:js": "babel src --out-dir dist --root-mode upward --extensions '.ts' --source-maps inline --ignore '**/*.spec.ts'"
+  },
 	"dependencies": {
     "utils": "*"
   },

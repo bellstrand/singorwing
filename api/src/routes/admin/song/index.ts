@@ -1,8 +1,8 @@
 import Router from "koa-router"
 import { Song } from "types"
-import { SongEntity } from "../../entities"
-import { Joi, validate } from "../../middleware/validate"
-import { KoaAuthContext } from "../../utils/koa"
+import { SongEntity } from "../../../entities"
+import { Joi, validate } from "../../../middleware/validate"
+import { KoaAuthContext } from "../../../utils/koa"
 
 export function songRoutes() {
 	const router = new Router()

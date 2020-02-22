@@ -28,13 +28,22 @@ export class SongEntity extends BaseEntity implements Song {
 	@Column({ nullable: false, default: "" })
 	lyrics!: string
 
-	@OneToMany(() => DistortionEntity, (distortion: DistortionEntity) => distortion.song)
+	@OneToMany(
+		() => DistortionEntity,
+		(distortion: DistortionEntity) => distortion.song,
+	)
 	distortions!: DistortionEntity[]
 
-	@OneToMany(() => FindSongEntity, (findSong: FindSongEntity) => findSong.song)
+	@OneToMany(
+		() => FindSongEntity,
+		(findSong: FindSongEntity) => findSong.song,
+	)
 	findSongs!: FindSongEntity[]
 
-	@OneToMany(() => IntroEntity, (intro: IntroEntity) => intro.song)
+	@OneToMany(
+		() => IntroEntity,
+		(intro: IntroEntity) => intro.song,
+	)
 	intros!: IntroEntity[]
 
 	@VersionColumn({ readonly: true })

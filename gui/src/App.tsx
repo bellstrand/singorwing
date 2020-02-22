@@ -1,6 +1,5 @@
 import React from "react"
 import "./App.css"
-import logo from "./logo.svg"
 import { Spotify } from "./spotify"
 
 type Props = {}
@@ -15,10 +14,6 @@ export class App extends React.PureComponent<Props, State> {
 		return (
 			<div className="App">
 				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Edit <code>src/App.tsx</code> and save to reload.
-					</p>
 					{this.state.spotify && (
 						<a href={this.state.spotify.url} rel="login">
 							Login
